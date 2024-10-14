@@ -1,0 +1,37 @@
+{
+  "type": "library",
+  "name": "zero-to-prod/data-model-helper",
+  "description": "Helpers for a DataModel.",
+  "keywords": [
+    "zero-to-prod",
+    "data-model-helper"
+  ],
+  "homepage": "https://github.com/zero-to-prod/data-model-helper",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "David Smith",
+      "email": "dave0016@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=8.2.0",
+    "zero-to-prod/data-model": "^v82.4.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Zerotoprod\\DataModelHelper\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.0"
+  },
+  "suggest": {
+    "zero-to-prod/transformable": "Transform a class into different types."
+  }
+}

@@ -1,0 +1,23 @@
+services:
+  php82:
+    build:
+      context: docker/php82
+      target: base
+    volumes:
+      - ./:/app
+      - ./docker/php82:/usr/local/etc/php
+
+  php82debug:
+    build:
+      context: docker/php82
+      target: debug
+    volumes:
+      - ./:/app
+
+  php82composer:
+    build:
+      context: docker/php82
+      target: composer
+    volumes:
+      - ./:/app
+      - ./docker/php82:/usr/local/etc/php
