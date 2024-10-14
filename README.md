@@ -12,12 +12,12 @@ Utilities for casting values using the [DataModel](https://github.com/zero-to-pr
 Install the package via Composer:
 
 ```bash
-composer require zerotoprod/data-model-helper
+composer require zero-to-prod/data-model-helper
 ```
 
 ## Quick Start
 
-Here’s how to use the mapOf helper with all its arguments:
+Here’s how to use the `mapOf` helper with all its arguments:
 
 ```php
 readonly class User
@@ -153,7 +153,7 @@ echo $User->Aliases[0]->name; // Outputs: John Doe
 
 #### Using a Custom Mapping Function
 
-Specify your own mapping function by setting the `using` option.
+Specify your mapping function by setting the `using` option.
 
 ```php
 readonly class User
@@ -207,7 +207,7 @@ echo $User->Aliases->items[0]->name; // Outputs: John Doe
 
 #### Specifying a Custom Mapping Method
 
-By default, the map method is used for mapping over elements. You can specify a different method using the `map_via` option.
+By default, the map method is used to map over elements. You can specify a different method using the `map_via` option.
 
 ```php
 readonly class User
