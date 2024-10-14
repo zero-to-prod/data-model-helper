@@ -25,7 +25,7 @@ readonly class User
     use \Zerotoprod\DataModel\DataModel;
     use \Zerotoprod\DataModelHelper\DataModelHelper;
     
-    /** @var Collection $Aliases */
+    /** @var Collection<int, Alias> $Aliases */
     #[Describe([
         'cast'    => [DataModelHelper::class, 'mapOf'], // Casting method to use
         'type'    => Alias::class,                      // Target type for each item
