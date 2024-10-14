@@ -5,6 +5,13 @@ namespace Zerotoprod\DataModelHelper;
 use ReflectionAttribute;
 use ReflectionProperty;
 
+/**
+ * Provides helper methods for casting and mapping values for classes using the DataModel package.
+ *
+ * @link    https://github.com/zero-to-prod/data-model-helper
+ * @see     https://github.com/zero-to-prod/data-model
+ * @package Zerotoprod\DataModelHelper
+ */
 trait DataModelHelper
 {
     /**
