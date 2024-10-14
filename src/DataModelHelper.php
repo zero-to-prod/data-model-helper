@@ -55,7 +55,7 @@ trait DataModelHelper
     public static function mapOf(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property)
     {
         $args = $Attribute?->getArguments();
-        $value = isset($args[0]['coerce']) ? [$value] : $value;
+        $value = isset($args[0]['coerce']) && !isset($value[0]) ? [$value] : $value;
 
         if (isset($Attribute?->getArguments()[0]['using'])) {
             return ($Attribute?->getArguments()[0]['using'])($value);
