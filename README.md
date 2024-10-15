@@ -1,9 +1,11 @@
 # `Zerotoprod\DataModelHelper`
 
 [![Repo](https://img.shields.io/badge/github-gray?logo=github)](https://github.com/zero-to-prod/data-model-helper)
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/zero-to-prod/data-model-helper.svg)](https://packagist.org/packages/zero-to-prod/data-model-helper)
-![test](https://github.com/zero-to-prod/data-model-helper/actions/workflows/phpunit.yml/badge.svg)
-![Downloads](https://img.shields.io/packagist/dt/zero-to-prod/data-model-helper.svg?style=flat-square&#41;]&#40;https://packagist.org/packages/zero-to-prod/data-model-helper&#41)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/zero-to-prod/data-model-helper/phpunit.yml?label=tests)](https://github.com/zero-to-prod/data-model-helper/actions)
+[![Packagist Downloads](https://img.shields.io/packagist/dt/zero-to-prod/data-model-helper?color=blue)](https://packagist.org/packages/zero-to-prod/data-model-helper/stats)
+[![Packagist Version](https://img.shields.io/packagist/v/zero-to-prod/data-model-helper?color=f28d1a)](https://packagist.org/packages/zero-to-prod/data-model-helper)
+[![GitHub repo size](https://img.shields.io/github/repo-size/zero-to-prod/data-model-helper)](https://github.com/zero-to-prod/data-model-helper)
+[![License](https://img.shields.io/packagist/l/zero-to-prod/data-model-helper?color=red)](https://github.com/zero-to-prod/data-model-helper/blob/main/LICENSE.md)
 
 Utilities for casting values using the [DataModel](https://github.com/zero-to-prod/data-model) package.
 
