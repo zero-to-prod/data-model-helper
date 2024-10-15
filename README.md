@@ -15,6 +15,12 @@ Install the package via Composer:
 composer require zero-to-prod/data-model-helper
 ```
 
+### Additional Packages
+
+- [DataModel](https://github.com/zero-to-prod/data-model): Transform data into a class.
+- [DataModelFactory](https://github.com/zero-to-prod/data-model-factory): A factory helper to set the value of your `DataModel`.
+- [Transformable](https://github.com/zero-to-prod/transformable): Transform a `DataModel` into different types.
+
 ## Quick Start
 
 Here’s how to use the `mapOf` helper with all its arguments:
@@ -85,8 +91,11 @@ $User = User::from([
 echo $User->Aliases[0]->name; // Outputs: John Doe
 echo $User->Aliases[1]->name; // Outputs: John Smith
 ```
+
 #### Laravel Collection Example
+
 The `mapOf` helper is designed to work will with the `\Illuminate\Support\Collection` class.
+
 ```php
 readonly class User
 {
@@ -117,9 +126,11 @@ $User = User::from([
 
 echo $User->Aliases->first()->name; // Outputs: John Doe
 ```
+
 #### Coercing
 
-Sometimes, an attribute may contain either a single element or an array of elements. By setting `'coerce' => true`, you can ensure that single elements
+Sometimes, an attribute may contain either a single element or an array of elements. By setting `'coerce' => true`, you can ensure that single
+elements
 are coerced into an array.
 
 ```php

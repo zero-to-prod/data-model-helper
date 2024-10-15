@@ -9,7 +9,11 @@ use ReflectionProperty;
  * Provides helper methods for casting and mapping values for classes using the DataModel package.
  *
  * @link    https://github.com/zero-to-prod/data-model-helper
+ *
  * @see     https://github.com/zero-to-prod/data-model
+ * @see     https://github.com/zero-to-prod/data-model-factory
+ * @see     https://github.com/zero-to-prod/transformable
+ *
  * @package Zerotoprod\DataModelHelper
  */
 trait DataModelHelper
@@ -49,8 +53,13 @@ trait DataModelHelper
      * }
      * ```
      *
-     * @link https://github.com/zero-to-prod/data-model-helper
-     * @see  https://github.com/zero-to-prod/data-model
+     * @link    https://github.com/zero-to-prod/data-model-helper
+     *
+     * @see     https://github.com/zero-to-prod/data-model
+     * @see     https://github.com/zero-to-prod/data-model-factory
+     * @see     https://github.com/zero-to-prod/transformable
+     *
+     * @package Zerotoprod\DataModelHelper
      */
     public static function mapOf(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property)
     {
