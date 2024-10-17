@@ -13,9 +13,9 @@ class User
 
     /** @var Collection $Aliases */
     #[Describe([
-        'cast' => [DataModelHelper::class, 'mapOf'],
+        'cast' => [self::class, 'mapOf'],
         'type' => Alias::class,
-        'using' => [User::class, 'map']
+        'using' => [self::class, 'map']
     ])]
     public Collection $Aliases;
 

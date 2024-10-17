@@ -2,17 +2,12 @@
 
 namespace Tests\Unit\Array;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
-use Zerotoprod\DataModelHelper\DataModelHelper;
 
 class ArrayTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @see DataModelHelper
-     */
-    public function from(): void
+    #[Test] public function from(): void
     {
         $User = User::from([
             'Aliases' => [

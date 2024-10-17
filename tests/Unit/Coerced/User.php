@@ -13,7 +13,7 @@ class User
 
     /** @var Alias[] $Aliases */
     #[Describe([
-        'cast' => [DataModelHelper::class, 'mapOf'],
+        'cast' => [self::class, 'mapOf'],
         'type' => Alias::class,
         'coerce' => true
     ])]

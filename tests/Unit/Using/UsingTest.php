@@ -2,17 +2,12 @@
 
 namespace Tests\Unit\Using;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
-use Zerotoprod\DataModelHelper\DataModelHelper;
 
 class UsingTest extends TestCase
 {
-    /**
-     * @test
-     *
-     * @see DataModelHelper
-     */
-    public function from(): void
+    #[Test] public function from(): void
     {
         $User = User::from([
             'Aliases' => [['name' => 'John Doe']],

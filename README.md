@@ -35,11 +35,11 @@ class User
     
     /** @var Collection<int, Alias> $Aliases */
     #[Describe([
-        'cast'    => [DataModelHelper::class, 'mapOf'], // Casting method to use
-        'type'    => Alias::class,                      // Target type for each item
-        'coerce'  => true,                              // Coerce single elements into an array
-        'using'   => [User::class, 'map'],              // Custom mapping function
-        'map_via' => 'mapper',                          // Custom mapping method (defaults to 'map')
+        'cast'    => [self::class, 'mapOf'],    // Casting method to use
+        'type'    => Alias::class,              // Target type for each item
+        'coerce'  => true,                      // Coerce single elements into an array
+        'using'   => [self::class, 'map'],      // Custom mapping function
+        'map_via' => 'mapper',                  // Custom mapping method (defaults to 'map')
     ])]
     public Collection $Aliases;
 }
@@ -70,8 +70,8 @@ class User
     
     /** @var Alias[] $Aliases */
     #[Describe([
-        'cast' => [DataModelHelper::class, 'mapOf'], // Use the mapOf helper method
-        'type' => Alias::class,                      // Target type for each item
+        'cast' => [self::class, 'mapOf'],   // Use the mapOf helper method
+        'type' => Alias::class,             // Target type for each item
     ])]
     public array $Aliases;
 }
@@ -106,7 +106,7 @@ class User
     
     /** @var Collection<int, Alias> $Aliases */
     #[Describe([
-        'cast' => [DataModelHelper::class, 'mapOf'],
+        'cast' => [self::class, 'mapOf'],
         'type' => Alias::class,
     ])]
     public \Illuminate\Support\Collection $Aliases;
@@ -143,7 +143,7 @@ class User
     
     /** @var Alias[] $Aliases */
     #[Describe([
-        'cast'   => [DataModelHelper::class, 'mapOf'],
+        'cast'   => [self::class, 'mapOf'],
         'type'   => Alias::class,
         'coerce' => true, // Coerce single elements into an array
     ])]
@@ -176,9 +176,9 @@ class User
     
     /** @var Collection $Aliases */
     #[Describe([
-        'cast'  => [DataModelHelper::class, 'mapOf'],
+        'cast'  => [self::class, 'mapOf'],
         'type'  => Alias::class,
-        'using' => [User::class, 'map'], // Use custom mapping function
+        'using' => [self::class, 'map'], // Use custom mapping function
     ])]
     public Collection $Aliases;
 
@@ -230,7 +230,7 @@ class User
     
     /** @var Collection $Aliases */
     #[Describe([
-        'cast'    => [DataModelHelper::class, 'mapOf'],
+        'cast'    => [self::class, 'mapOf'],
         'type'    => Alias::class,
         'map_via' => 'mapper', // Use custom mapping method for the `Collection` class.
     ])]
