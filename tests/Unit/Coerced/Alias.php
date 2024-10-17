@@ -4,7 +4,7 @@ namespace Tests\Unit\Coerced;
 
 use Zerotoprod\DataModel\DataModel;
 
-readonly class Alias
+class Alias
 {
     use DataModel;
 

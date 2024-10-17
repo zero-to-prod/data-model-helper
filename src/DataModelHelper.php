@@ -22,7 +22,7 @@ trait DataModelHelper
      * Maps an array of values to instances of a specified type.
      *
      * ```
-     * readonly class User
+     * class User
      * {
      *  use \Zerotoprod\DataModel\DataModel;
      *  use \Zerotoprod\DataModelHelper\DataModelHelper;
@@ -45,7 +45,7 @@ trait DataModelHelper
      *  }
      * }
      *
-     * readonly class Alias
+     * class Alias
      * {
      *  use \Zerotoprod\DataModel\DataModel;
      *

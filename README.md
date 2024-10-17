@@ -28,7 +28,7 @@ composer require zero-to-prod/data-model-helper
 Here’s how to use the `mapOf` helper with all its arguments:
 
 ```php
-readonly class User
+class User
 {
     use \Zerotoprod\DataModel\DataModel;
     use \Zerotoprod\DataModelHelper\DataModelHelper;
@@ -63,7 +63,7 @@ class DataModelHelper
 The `mapOf()` method returns an array of `Alias` instances.
 
 ```php
-readonly class User
+class User
 {
     use \Zerotoprod\DataModel\DataModel;
     use \Zerotoprod\DataModelHelper\DataModelHelper;
@@ -76,7 +76,7 @@ readonly class User
     public array $Aliases;
 }
 
-readonly class Alias
+class Alias
 {
     use \Zerotoprod\DataModel\DataModel;
     
@@ -99,7 +99,7 @@ echo $User->Aliases[1]->name; // Outputs: John Smith
 The `mapOf` helper is designed to work will with the `\Illuminate\Support\Collection` class.
 
 ```php
-readonly class User
+class User
 {
     use \Zerotoprod\DataModel\DataModel;
     use \Zerotoprod\DataModelHelper\DataModelHelper;
@@ -112,7 +112,7 @@ readonly class User
     public \Illuminate\Support\Collection $Aliases;
 }
 
-readonly class Alias
+class Alias
 {
     use \Zerotoprod\DataModel\DataModel;
     
@@ -136,7 +136,7 @@ elements
 are coerced into an array.
 
 ```php
-readonly class User
+class User
 {
     use \Zerotoprod\DataModel\DataModel;
     use \Zerotoprod\DataModelHelper\DataModelHelper;
@@ -150,7 +150,7 @@ readonly class User
     public array $Aliases;
 }
 
-readonly class Alias
+class Alias
 {
     use \Zerotoprod\DataModel\DataModel;
     
@@ -169,7 +169,7 @@ echo $User->Aliases[0]->name; // Outputs: John Doe
 Specify your mapping function by setting the `using` option.
 
 ```php
-readonly class User
+class User
 {
     use \Zerotoprod\DataModel\DataModel;
     use \Zerotoprod\DataModelHelper\DataModelHelper;
@@ -192,7 +192,7 @@ readonly class User
     }
 }
 
-readonly class Alias
+class Alias
 {
     use \Zerotoprod\DataModel\DataModel;
     
@@ -223,7 +223,7 @@ echo $User->Aliases->items[0]->name; // Outputs: John Doe
 By default, the map method is used to map over elements. You can specify a different method using the `map_via` option.
 
 ```php
-readonly class User
+class User
 {
     use \Zerotoprod\DataModel\DataModel;
     use \Zerotoprod\DataModelHelper\DataModelHelper;
@@ -237,7 +237,7 @@ readonly class User
     public Collection $Aliases;
 }
 
-readonly class Alias
+class Alias
 {
     use \Zerotoprod\DataModel\DataModel;
 

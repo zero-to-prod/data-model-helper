@@ -6,7 +6,7 @@ use Zerotoprod\DataModel\DataModel;
 use Zerotoprod\DataModel\Describe;
 use Zerotoprod\DataModelHelper\DataModelHelper;
 
-readonly class User
+class User
 {
     use DataModel;
     use DataModelHelper;
