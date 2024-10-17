@@ -1,7 +1,7 @@
 # `Zerotoprod\DataModelHelper`
 
 [![Repo](https://img.shields.io/badge/github-gray?logo=github)](https://github.com/zero-to-prod/data-model-helper)
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/zero-to-prod/data-model-helper/phpunit.yml?label=tests)](https://github.com/zero-to-prod/data-model-helper/actions)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/zero-to-prod/data-model-helper/test.yml?label=tests)](https://github.com/zero-to-prod/data-model-helper/actions)
 [![Packagist Downloads](https://img.shields.io/packagist/dt/zero-to-prod/data-model-helper?color=blue)](https://packagist.org/packages/zero-to-prod/data-model-helper/stats)
 [![Packagist Version](https://img.shields.io/packagist/v/zero-to-prod/data-model-helper?color=f28d1a)](https://packagist.org/packages/zero-to-prod/data-model-helper)
 [![GitHub repo size](https://img.shields.io/github/repo-size/zero-to-prod/data-model-helper)](https://github.com/zero-to-prod/data-model-helper)
