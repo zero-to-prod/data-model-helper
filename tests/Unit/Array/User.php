@@ -17,4 +17,12 @@ class User
         'type' => Alias::class,
     ])]
     public array $Aliases;
+
+    /** @var Alias[][] $AliasesNested */
+    #[Describe([
+        'cast' => [self::class, 'mapOf'],
+        'type' => Alias::class,
+        'level' => 2,
+    ])]
+    public array $AliasesNested;
 }

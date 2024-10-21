@@ -40,6 +40,7 @@ class User
         'coerce'  => true,                      // Coerce single elements into an array
         'using'   => [self::class, 'map'],      // Custom mapping function
         'map_via' => 'mapper',                  // Custom mapping method (defaults to 'map')
+        'level' => 1,                           // The dimension of the array. Defaults to 1.
     ])]
     public Collection $Aliases;
 }
@@ -267,4 +268,42 @@ $User = User::from([
 ]);
 
 echo $User->Aliases->items[0]->name; // Outputs: John Doe
+```
+#### Deep Mapping
+
+You can set the level for mapping deep arrays.
+
+```php
+class User
+{
+    use \Zerotoprod\DataModel\DataModel;
+    use \Zerotoprod\DataModelHelper\DataModelHelper;
+    
+    /** @var Alias[] $Aliases */
+    #[Describe([
+        'cast' => [self::class, 'mapOf'],   // Use the mapOf helper method
+        'type' => Alias::class,             // Target type for each item
+        'level' => 2,                       // The dimension of the array. Defaults to 1.
+    ])]
+    public array $Aliases;
+}
+
+class Alias
+{
+    use \Zerotoprod\DataModel\DataModel;
+    
+    public string $name;
+}
+
+$User = User::from([
+    'Aliases' => [
+        [
+            ['name' => 'John Doe'],
+            ['name' => 'John Smith'],
+        ]
+    ]
+]);
+
+echo $User->Aliases[0][0]->name; // Outputs: John Doe
+echo $User->Aliases[0][1]->name; // Outputs: John Smith
 ```

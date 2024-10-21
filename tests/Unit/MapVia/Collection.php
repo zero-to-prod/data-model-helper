@@ -13,7 +13,12 @@ class Collection
     public function mapper(callable $callable): Collection
     {
         $Collection = new self($this->value);
-        $Collection->items = array_map($callable, $this->value);
+        if(isset($this->value->items)){
+            $Collection->items = array_map($callable, (array)$this->value->items);
+
+            return $Collection;
+        }
+        $Collection->items = array_map($callable, $this->value ?? []);
 
         return $Collection;
     }
