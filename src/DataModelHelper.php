@@ -73,9 +73,19 @@ trait DataModelHelper
         $method = $Attribute?->getArguments()[0]['method'] ?? 'from';
         $type = $Property->getType()?->getName();
         $map = $Attribute?->getArguments()[0]['map_via'] ?? 'map';
+        $classname = $args[0]['type'];
 
-        return $type === 'array'
-            ? array_map(static fn($item) => $args[0]['type']::$method($item), $value)
-            : (new $type($value))->$map(fn($item) => $args[0]['type']::$method($item));
+        $mapper = static function ($value, $level = 1) use ($classname, $map, $type, $method, &$mapper) {
+            return $type === 'array'
+                ? array_map(static fn($item) => $level <= 1
+                    ? $classname::$method($item)
+                    : $mapper($item, $level - 1),
+                    (array)$value)
+                : (new $type($value))->$map(fn($item) => $level <= 1
+                    ? $classname::$method($item)
+                    : $mapper($item, $level - 1));
+        };
+
+        return $mapper($value, $args[0]['level'] ?? 1);
     }
 }
