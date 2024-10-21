@@ -15,7 +15,16 @@ class User
     #[Describe([
         'cast' => [self::class, 'mapOf'],
         'type' => Alias::class,
-        'map_via' => 'mapper'
+        'map_via' => 'mapper',
     ])]
     public Collection $Aliases;
+
+    /** @var Collection<Collection> $AliasesNested */
+    #[Describe([
+        'cast' => [self::class, 'mapOf'],
+        'type' => Alias::class,
+        'map_via' => 'mapper',
+        'level' => 2,
+    ])]
+    public Collection $AliasesNested;
 }
