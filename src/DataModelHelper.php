@@ -33,23 +33,9 @@ trait DataModelHelper
      *      'coerce'  => true,                              // Coerce single elements into an array
      *      'using'   => [User::class, 'map'],              // Custom mapping function
      *      'map_via' => 'mapper',                          // Custom mapping method (defaults to 'map')
+     *      'level'   => 1,                                 // The dimension of the array. Defaults to 1.
      *  ])]
      *  public Collection $Aliases;
-     *
-     *  public static function map(array $values): Collection
-     *  {
-     *      $Collection = new Collection();
-     *      $Collection->items = $values;
-     *
-     *      return $Collection;
-     *  }
-     * }
-     *
-     * class Alias
-     * {
-     *  use \Zerotoprod\DataModel\DataModel;
-     *
-     *  public string $name;
      * }
      * ```
      *
