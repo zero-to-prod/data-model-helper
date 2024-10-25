@@ -1,11 +1,13 @@
-# `Zerotoprod\DataModelHelper`
+# Zerotoprod\DataModelHelper
+
+![](./logo.png)
 
 [![Repo](https://img.shields.io/badge/github-gray?logo=github)](https://github.com/zero-to-prod/data-model-helper)
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/zero-to-prod/data-model-helper/test.yml?label=tests)](https://github.com/zero-to-prod/data-model-helper/actions)
 [![Packagist Downloads](https://img.shields.io/packagist/dt/zero-to-prod/data-model-helper?color=blue)](https://packagist.org/packages/zero-to-prod/data-model-helper/stats)
+[![php](https://img.shields.io/packagist/php-v/zero-to-prod/data-model-helper.svg?color=purple)](https://packagist.org/packages/zero-to-prod/data-model-helper/stats)
 [![Packagist Version](https://img.shields.io/packagist/v/zero-to-prod/data-model-helper?color=f28d1a)](https://packagist.org/packages/zero-to-prod/data-model-helper)
-[![GitHub repo size](https://img.shields.io/github/repo-size/zero-to-prod/data-model-helper)](https://github.com/zero-to-prod/data-model-helper)
-[![License](https://img.shields.io/packagist/l/zero-to-prod/data-model-helper?color=red)](https://github.com/zero-to-prod/data-model-helper/blob/main/LICENSE.md)
+[![License](https://img.shields.io/packagist/l/zero-to-prod/data-model-helper?color=pink)](https://github.com/zero-to-prod/data-model-helper/blob/main/LICENSE.md)
 
 Utilities for casting values using the [DataModel](https://github.com/zero-to-prod/data-model) package.
 
@@ -269,6 +271,7 @@ $User = User::from([
 
 echo $User->Aliases->items[0]->name; // Outputs: John Doe
 ```
+
 #### Deep Mapping
 
 You can set the level for mapping deep arrays.
