@@ -52,24 +52,30 @@ trait DataModelHelper
         $args = $Attribute?->getArguments();
         $value = isset($args[0]['coerce']) && !isset($value[0]) ? [$value] : $value;
 
-        if (isset($Attribute?->getArguments()[0]['using'])) {
-            return ($Attribute?->getArguments()[0]['using'])($value);
+        if (isset($args[0]['using'])) {
+            return ($args[0]['using'])($value);
         }
 
-        $method = $Attribute?->getArguments()[0]['method'] ?? 'from';
+        $method = $args[0]['method'] ?? 'from';
         $type = $Property->getType()?->getName();
-        $map = $Attribute?->getArguments()[0]['map_via'] ?? 'map';
+        $map = $args[0]['map_via'] ?? 'map';
         $classname = $args[0]['type'];
+        $keyBy = static fn($value, ?string $key_by) => $key_by && count(array_column($value, $key_by))
+            ? array_combine(array_column($value, $key_by), $value)
+            : $value;
 
-        $mapper = static function ($value, $level = 1) use ($classname, $map, $type, $method, &$mapper) {
+        $mapper = static function ($value, $level = 1) use ($keyBy, $args, $classname, $map, $type, $method, &$mapper) {
             return $type === 'array'
                 ? array_map(static fn($item) => $level <= 1
                     ? $classname::$method($item)
                     : $mapper($item, $level - 1),
-                    (array)$value)
-                : (new $type($value))->$map(fn($item) => $level <= 1
-                    ? $classname::$method($item)
-                    : $mapper($item, $level - 1));
+                    $keyBy($value, $args[0]['key_by'] ?? null))
+                : (new $type($keyBy($value, $args[0]['key_by'] ?? null)))
+                    ->$map(
+                        fn($item) => $level <= 1
+                            ? $classname::$method($item)
+                            : $mapper($item, $level - 1)
+                    );
         };
 
         return $mapper($value, $args[0]['level'] ?? 1);
