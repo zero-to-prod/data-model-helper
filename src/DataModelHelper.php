@@ -34,6 +34,7 @@ trait DataModelHelper
      *      'using'   => [User::class, 'map'],              // Custom mapping function
      *      'map_via' => 'mapper',                          // Custom mapping method (defaults to 'map')
      *      'level'   => 1,                                 // The dimension of the array. Defaults to 1.
+     *      'key_by' => 'key',                              // Key an associative array by a field.
      *  ])]
      *  public Collection $Aliases;
      * }
