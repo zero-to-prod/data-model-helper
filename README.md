@@ -44,6 +44,7 @@ class User
         'coerce'  => true,                      // Coerce single elements into an array
         'using'   => [self::class, 'map'],      // Custom mapping function
         'map_via' => 'mapper',                  // Custom mapping method (defaults to 'map')
+        'map' => [self::class, 'keyBy'],        // Run a function for that value.
         'level' => 1,                           // The dimension of the array. Defaults to 1.
         'key_by' => 'key',                      // Key an associative array by a field.
     ])]
@@ -330,6 +331,8 @@ echo $User->Aliases[0][1]->name; // Outputs: John Smith
 Key an array by an element value by using the `key_by` argument.
 
 This also supports deep mapping.
+
+Note: this only applies to arrays.
 ```php
 class User
 {
@@ -368,4 +371,48 @@ $User = User::from([
 
 echo $User->Aliases['jd1']->name;  // 'John Doe'
 echo $User->Aliases['js1']->name); // 'John Smith'
+```
+
+#### Map
+Call a function for that value.
+
+Note: This does not work with arrays.
+```php
+class User
+{
+    use \Zerotoprod\DataModel\DataModel;
+    use \Zerotoprod\DataModelHelper\DataModelHelper;
+    
+    /** @var Alias[] $Aliases */
+    #[Describe([
+        'cast' => [self::class, 'mapOf'],   
+        'type' => Alias::class,             
+        'map' => [self::class, 'keyBy'],
+    ])]
+    public Collection $Aliases;
+    
+    public static function keyBy(Collection $values): Collection
+    {
+        return $values->keyBy('id');
+    }
+}
+
+class Alias
+{
+    use \Zerotoprod\DataModel\DataModel;
+    
+    public string $id;
+    public string $name;
+}
+
+$User = User::from([
+    'Aliases' => [
+        [
+            'id' => 'jd1',
+            'name' => 'John Doe',
+        ]
+    ]
+]);
+
+echo $User->Aliases->get('jd1')->name;  // 'John Doe'
 ```
