@@ -30,6 +30,8 @@ composer require zero-to-prod/data-model-helper
 Here’s how to use the `mapOf` helper with all its arguments:
 
 ```php
+use Zerotoprod\DataModel\Describe;
+
 class User
 {
     use \Zerotoprod\DataModel\DataModel;
@@ -43,6 +45,7 @@ class User
         'using'   => [self::class, 'map'],      // Custom mapping function
         'map_via' => 'mapper',                  // Custom mapping method (defaults to 'map')
         'level' => 1,                           // The dimension of the array. Defaults to 1.
+        'key_by' => 'key',                      // Key an associative array by a field.
     ])]
     public Collection $Aliases;
 }
@@ -66,6 +69,8 @@ class DataModelHelper
 The `mapOf()` method returns an array of `Alias` instances.
 
 ```php
+use Zerotoprod\DataModel\Describe;
+
 class User
 {
     use \Zerotoprod\DataModel\DataModel;
@@ -102,6 +107,8 @@ echo $User->Aliases[1]->name; // Outputs: John Smith
 The `mapOf` helper is designed to work will with the `\Illuminate\Support\Collection` class.
 
 ```php
+use Zerotoprod\DataModel\Describe;
+
 class User
 {
     use \Zerotoprod\DataModel\DataModel;
@@ -139,6 +146,8 @@ elements
 are coerced into an array.
 
 ```php
+use Zerotoprod\DataModel\Describe;
+
 class User
 {
     use \Zerotoprod\DataModel\DataModel;
@@ -172,6 +181,8 @@ echo $User->Aliases[0]->name; // Outputs: John Doe
 Specify your mapping function by setting the `using` option.
 
 ```php
+use Zerotoprod\DataModel\Describe;
+
 class User
 {
     use \Zerotoprod\DataModel\DataModel;
@@ -226,6 +237,8 @@ echo $User->Aliases->items[0]->name; // Outputs: John Doe
 By default, the map method is used to map over elements. You can specify a different method using the `map_via` option.
 
 ```php
+use Zerotoprod\DataModel\Describe;
+
 class User
 {
     use \Zerotoprod\DataModel\DataModel;
@@ -277,6 +290,8 @@ echo $User->Aliases->items[0]->name; // Outputs: John Doe
 You can set the level for mapping deep arrays.
 
 ```php
+use Zerotoprod\DataModel\Describe;
+
 class User
 {
     use \Zerotoprod\DataModel\DataModel;
@@ -309,4 +324,48 @@ $User = User::from([
 
 echo $User->Aliases[0][0]->name; // Outputs: John Doe
 echo $User->Aliases[0][1]->name; // Outputs: John Smith
+```
+
+#### KeyBy
+Key an array by an element value by using the `key_by` argument.
+
+This also supports deep mapping.
+```php
+class User
+{
+    use \Zerotoprod\DataModel\DataModel;
+    use \Zerotoprod\DataModelHelper\DataModelHelper;
+    
+    /** @var Alias[] $Aliases */
+    #[Describe([
+        'cast' => [self::class, 'mapOf'],   
+        'type' => Alias::class,             
+        'key_by' => 'id',
+    ])]
+    public array $Aliases;
+}
+
+class Alias
+{
+    use \Zerotoprod\DataModel\DataModel;
+    
+    public string $id;
+    public string $name;
+}
+
+$User = User::from([
+    'Aliases' => [
+        [
+            'id' => 'jd1',
+            'name' => 'John Doe',
+        ],
+        [
+            'id' => 'js1',
+            'name' => 'John Smith'
+        ],
+    ]
+]);
+
+echo $User->Aliases['jd1']->name;  // 'John Doe'
+echo $User->Aliases['js1']->name); // 'John Smith'
 ```
