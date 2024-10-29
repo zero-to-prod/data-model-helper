@@ -60,21 +60,23 @@ trait DataModelHelper
         $method = $args[0]['method'] ?? 'from';
         $type = $Property->getType()?->getName();
         $map = $args[0]['map_via'] ?? 'map';
-        $classname = $args[0]['type'];
-        $keyBy = static fn($value, ?string $key_by) => $key_by && count(array_column($value, $key_by))
-            ? array_combine(array_column($value, $key_by), $value)
-            : $value;
 
-        $mapper = static function ($value, $level = 1) use ($keyBy, $args, $classname, $map, $type, $method, &$mapper) {
+        $mapper = static function ($value, $level = 1) use ($args, $map, $type, $method, &$mapper) {
             return $type === 'array'
                 ? array_map(static fn($item) => $level <= 1
-                    ? $classname::$method($item)
+                    ? $args[0]['type']::$method($item)
                     : $mapper($item, $level - 1),
-                    $keyBy($value, $args[0]['key_by'] ?? null))
-                : (new $type($keyBy($value, $args[0]['key_by'] ?? null)))
+                        ($args[0]['key_by'] ?? null) && count(array_column($value, ($args[0]['key_by'] ?? null)))
+                        ? array_combine(array_column($value, ($args[0]['key_by'] ?? null)), $value)
+                        : $value)
+                : (new $type(
+                    is_callable($args[0]['map'] ?? null)
+                        ? $args[0]['map']($value)
+                        : $value
+                ))
                     ->$map(
                         fn($item) => $level <= 1
-                            ? $classname::$method($item)
+                            ? $args[0]['type']::$method($item)
                             : $mapper($item, $level - 1)
                     );
         };
