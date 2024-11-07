@@ -19,15 +19,27 @@ Install the package via Composer:
 composer require zero-to-prod/data-model-helper
 ```
 
-### Additional Packages
+## Usage
 
-- [DataModel](https://github.com/zero-to-prod/data-model): Transform data into a class.
-- [DataModelFactory](https://github.com/zero-to-prod/data-model-factory): A factory helper to set the value of your `DataModel`.
-- [Transformable](https://github.com/zero-to-prod/transformable): Transform a `DataModel` into different types.
+### Including the Trait
 
-## Quick Start
+Include the `DataModelHelper` trait in your class to access helper methods:
 
-Here’s how to use the `mapOf` helper with all its arguments:
+```php
+class DataModelHelper
+{
+    use \Zerotoprod\DataModelHelper\DataModelHelper;
+}
+```
+
+## Helper Methods
+
+- [mapOf](#mapof): Create a map of any type by using
+- [pregReplace](#pregreplace): Perform a regular expression search and replace.
+
+### `mapOf()`
+
+Create a map of any type by using the `DataModelHelper::mapOf()` method.
 
 ```php
 use Zerotoprod\DataModel\Describe;
@@ -52,22 +64,9 @@ class User
 }
 ```
 
-## Usage
+#### Usage
 
-### Including the Trait
-
-Include the `DataModelHelper` trait in your class to access helper methods:
-
-```php
-class DataModelHelper
-{
-    use \Zerotoprod\DataModelHelper\DataModelHelper;
-}
-```
-
-### mapOf()
-
-The `mapOf()` method returns an array of `Alias` instances.
+In this case the `mapOf()` method returns an array of `Alias` instances.
 
 ```php
 use Zerotoprod\DataModel\Describe;
@@ -415,4 +414,31 @@ $User = User::from([
 ]);
 
 echo $User->Aliases->get('jd1')->name;  // 'John Doe'
+```
+
+### `pregReplace()`
+
+Use `pregReplace()` to perform a regular expression search and replace.
+
+```php
+class User
+{
+    use \Zerotoprod\DataModel\DataModel;
+    use \Zerotoprod\DataModelHelper\DataModelHelper;
+    
+    public const ascii_only = '/[^\x00-\x7F]/';
+
+    #[Describe([
+        'cast' => [self::class, 'pregReplace'],
+        'pattern' => ascii_only,
+        'replacement' => '!' // defaults to '' when not specified
+    ])]
+    public string $name;
+}
+
+$User = User::from([
+    'name' => 'Trophy🏆',
+]);
+
+echo $User->name; // Outputs: 'Trophy!'
 ```
