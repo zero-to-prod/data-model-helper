@@ -84,6 +84,19 @@ trait DataModelHelper
         return $mapper($value, $args[0]['level'] ?? 1);
     }
 
+    /**
+     * Perform a regular expression search and replace.
+     *
+     * NOTE: If property allows null, null will be returned, else an empty string.
+     *
+     * ```
+     *  #[Describe([
+     *      'cast' => [self::class, 'pregReplace'],
+     *      'pattern' => '/s/', // any regular expression
+     *      'replacement' => '' // default
+     *  ])]
+     * ```
+     */
     public static function pregReplace(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property): array|string|null
     {
         if (!$value) {
