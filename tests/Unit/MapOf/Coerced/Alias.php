@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\KeyBy;
+namespace Tests\Unit\MapOf\Coerced;
 
 use Zerotoprod\DataModel\DataModel;
 
@@ -8,6 +8,5 @@ class Alias
 {
     use DataModel;
 
-    public string $id;
     public string $name;
 }

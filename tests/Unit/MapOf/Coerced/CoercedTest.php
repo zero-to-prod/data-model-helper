@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Coerced;
+namespace Tests\Unit\MapOf\Coerced;
 
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;

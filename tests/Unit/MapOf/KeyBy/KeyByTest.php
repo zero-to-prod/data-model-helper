@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\KeyBy;
+namespace Tests\Unit\MapOf\KeyBy;
 
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;

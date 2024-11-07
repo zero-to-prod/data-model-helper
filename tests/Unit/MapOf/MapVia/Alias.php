@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Array;
+namespace Tests\Unit\MapOf\MapVia;
 
 use Zerotoprod\DataModel\DataModel;
 
