@@ -36,8 +36,9 @@ class DataModelHelper
 
 - [mapOf](#mapof): Create a map of any type by using
 - [pregReplace](#pregreplace): Perform a regular expression search and replace.
+- [isUrl](#isurl): Validates a url.
 
-### `mapOf()`
+### `mapOf`
 
 Create a map of any type by using the `DataModelHelper::mapOf()` method.
 
@@ -416,9 +417,9 @@ $User = User::from([
 echo $User->Aliases->get('jd1')->name;  // 'John Doe'
 ```
 
-### `pregReplace()`
+### `pregReplace`
 
-Use `pregReplace()` to perform a regular expression search and replace.
+Use `pregReplace` to perform a regular expression search and replace.
 
 ```php
 class User
@@ -441,4 +442,24 @@ $User = User::from([
 ]);
 
 echo $User->name; // Outputs: 'Trophy!'
+```
+
+### `isUrl`
+
+Use `isUrl` to perform validate a url.
+
+```php
+class User
+{
+    use \Zerotoprod\DataModel\DataModel;
+    use \Zerotoprod\DataModelHelper\DataModelHelper;
+
+    #[Describe([
+        'cast' => [self::class, 'isUrl'],
+        'protocols' => ['http', 'udp'], // Optional. Defaults to all.
+        'on_fail' => [MyAction::class, 'method'], // Optional. Invoked when validation fails.
+        'exception' => InvalidUrlException::class, // Optional. Throws an exception when not url.
+    ])]
+    public string $url;
+}
 ```
