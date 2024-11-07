@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Using;
+namespace Tests\Unit\MapOf\Using;
 
 class Collection
 {

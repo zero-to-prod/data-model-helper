@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Array;
+namespace Tests\Unit\MapOf\Array;
 
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;

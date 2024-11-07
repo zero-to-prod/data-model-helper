@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Coerced;
+namespace Tests\Unit\MapOf\Array;
 
 use Zerotoprod\DataModel\DataModel;
 use Zerotoprod\DataModel\Describe;
@@ -15,7 +15,14 @@ class User
     #[Describe([
         'cast' => [self::class, 'mapOf'],
         'type' => Alias::class,
-        'coerce' => true
     ])]
     public array $Aliases;
+
+    /** @var Alias[][] $AliasesNested */
+    #[Describe([
+        'cast' => [self::class, 'mapOf'],
+        'type' => Alias::class,
+        'level' => 2,
+    ])]
+    public array $AliasesNested;
 }

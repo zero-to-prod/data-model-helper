@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Coerced;
+namespace Tests\Unit\MapOf\Using;
 
 use Zerotoprod\DataModel\DataModel;
 

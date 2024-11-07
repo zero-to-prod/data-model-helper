@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\MapVia;
+namespace Tests\Unit\MapOf\MapVia;
 
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;

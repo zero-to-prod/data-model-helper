@@ -66,7 +66,7 @@ trait DataModelHelper
                 ? array_map(static fn($item) => $level <= 1
                     ? $args[0]['type']::$method($item)
                     : $mapper($item, $level - 1),
-                        ($args[0]['key_by'] ?? null) && count(array_column($value, ($args[0]['key_by'] ?? null)))
+                    ($args[0]['key_by'] ?? null) && count(array_column($value, ($args[0]['key_by'] ?? null)))
                         ? array_combine(array_column($value, ($args[0]['key_by'] ?? null)), $value)
                         : $value)
                 : (new $type(
@@ -82,5 +82,17 @@ trait DataModelHelper
         };
 
         return $mapper($value, $args[0]['level'] ?? 1);
+    }
+
+    public static function pregReplace(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property): array|string|null
+    {
+        if (!$value) {
+            return $Property->getType()?->allowsNull()
+                ? null
+                : '';
+        }
+        $args = $Attribute?->getArguments();
+
+        return preg_replace($args[0]['pattern'], $args[0]['replacement'] ?? '', $value);
     }
 }
