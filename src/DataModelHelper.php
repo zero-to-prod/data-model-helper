@@ -50,6 +50,10 @@ trait DataModelHelper
      */
     public static function mapOf(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property)
     {
+        if (!$value) {
+            return null;
+        }
+
         $args = $Attribute?->getArguments()[0];
         $value = isset($args['coerce']) && !isset($value[0]) ? [$value] : $value;
 
@@ -122,7 +126,7 @@ trait DataModelHelper
      */
     public static function isUrl(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property): ?string
     {
-        if(!$value){
+        if (!$value) {
             return null;
         }
 
