@@ -50,7 +50,7 @@ trait DataModelHelper
      */
     public static function mapOf(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property)
     {
-        if (!$value) {
+        if (!$value && $Property->getType()?->allowsNull()) {
             return null;
         }
 
