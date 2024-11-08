@@ -16,7 +16,7 @@ class User
         'cast' => [self::class, 'mapOf'],
         'type' => Alias::class,
     ])]
-    public array $Aliases;
+    public ?array $Aliases;
 
     /** @var Alias[][] $AliasesNested */
     #[Describe([
@@ -24,5 +24,5 @@ class User
         'type' => Alias::class,
         'level' => 2,
     ])]
-    public array $AliasesNested;
+    public ?array $AliasesNested;
 }

@@ -17,7 +17,7 @@ class User
         'type' => Alias::class,
         'key_by' => 'id'
     ])]
-    public array $Aliases;
+    public ?array $Aliases;
 
     /** @var Alias[][] $AliasesNested */
     #[Describe([
@@ -26,5 +26,5 @@ class User
         'level' => 2,
         'key_by' => 'id'
     ])]
-    public array $AliasesNested;
+    public ?array $AliasesNested;
 }

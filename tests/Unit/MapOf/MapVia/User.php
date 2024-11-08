@@ -26,5 +26,5 @@ class User
         'map_via' => 'mapper',
         'level' => 2,
     ])]
-    public Collection $AliasesNested;
+    public ?Collection $AliasesNested;
 }
