@@ -36,6 +36,7 @@ class DataModelHelper
 
 - [mapOf](#mapof): Create a map of any type by using
 - [pregReplace](#pregreplace): Perform a regular expression search and replace.
+- [pregMatch](#pregmatch): Perform a regular expression match.
 - [isUrl](#isurl): Validates a url.
 
 ### `mapOf`
@@ -442,6 +443,33 @@ $User = User::from([
 ]);
 
 echo $User->name; // Outputs: 'Trophy!'
+```
+
+### `pregMatch`
+
+Use `pregMatch` to perform a regular expression match.
+
+```php
+class User
+{
+    use \Zerotoprod\DataModel\DataModel;
+    use \Zerotoprod\DataModelHelper\DataModelHelper;
+
+    #[Describe([
+        'cast' => [self::class, 'pregMatch'],
+        'pattern' => '/s/', // Required
+        'match_on' => 0 // Index of the $matches to return
+        'flags' => PREG_UNMATCHED_AS_NULL
+        'offset' => 0
+    ])]
+    public string $name;
+}
+
+$User = User::from([
+    'name' => 'sarah',
+]);
+
+echo $User->name; // Outputs: 's'
 ```
 
 ### `isUrl`

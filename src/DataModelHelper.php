@@ -110,9 +110,46 @@ trait DataModelHelper
                 ? null
                 : '';
         }
+
         $args = $Attribute?->getArguments()[0];
 
         return preg_replace($args['pattern'], $args['replacement'] ?? '', $value);
+    }
+
+    /**
+     * Perform a regular expression match.
+     *
+     * NOTE: If property allows null, null will be returned.
+     *
+     * ```
+     *  #[Describe([
+     *      'cast' => [self::class, 'pregMatch'],
+     *      'pattern' => '/s/', // Required
+     *      'match_on' => 0 // Index of the $matches to return
+     *      'flags' => PREG_UNMATCHED_AS_NULL
+     *      'offset' => 0
+     *  ])]
+     * ```
+     */
+    public static function pregMatch(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property)
+    {
+        if (!$value && $Property->getType()?->allowsNull()) {
+            return null;
+        }
+
+        if (!is_string($value)) {
+            return $value;
+        }
+
+        $args = $Attribute?->getArguments()[0];
+        preg_match($args['pattern'], $value, $matches, $args['flags'] ?? 0, $args['offset'] ?? 0);
+
+        if(isset($args['match_on']) && !isset($matches[$args['match_on']])) {
+            return;
+        }
+        return isset($args['match_on'])
+            ? $matches[$args['match_on']]
+            : $matches;
     }
 
     /**
