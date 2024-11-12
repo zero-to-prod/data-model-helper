@@ -111,7 +111,7 @@ trait DataModelHelper
                 : '';
         }
 
-         $args = $Attribute?->getArguments()[0];
+        $args = $Attribute?->getArguments()[0];
 
         return preg_replace($args['pattern'], $args['replacement'] ?? '', $value);
     }
@@ -131,10 +131,18 @@ trait DataModelHelper
      */
     public static function pregMatch(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property): array|string|null
     {
-        $args = $Attribute?->getArguments()[0];
-        preg_match($args['pattern'], $value, $matches, $args['flags'] ?? null, $args['offset'] ?? null);
+        if (!$value && $Property->getType()?->allowsNull()) {
+            return null;
+        }
 
-        return isset($args['match_on'])
+        if (!is_string($value)) {
+            return $value;
+        }
+
+        $args = $Attribute?->getArguments()[0];
+        preg_match($args['pattern'], $value, $matches, $args['flags'] ?? 0, $args['offset'] ?? 0);
+
+        return isset($args['match_on'], $matches)
             ? $matches[$args['match_on']]
             : $matches;
     }

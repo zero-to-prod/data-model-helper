@@ -20,14 +20,14 @@ class User
         'cast' => [self::class, 'pregMatch'],
         'pattern' => '/s/',
     ])]
-    public array $name;
+    public ?array $name;
 
     #[Describe([
         'cast' => [self::class, 'pregMatch'],
         'pattern' => '/s/',
         'match_on' => 0
     ])]
-    public string $s;
+    public ?string $s;
 
     #[Describe([
         'cast' => [self::class, 'pregMatch'],
@@ -42,5 +42,5 @@ class User
         'pattern' => '/s/',
         'offset' => 1
     ])]
-    public array $offset;
+    public ?array $offset;
 }

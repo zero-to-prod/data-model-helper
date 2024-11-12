@@ -5,7 +5,7 @@ namespace Tests\Unit\PregMatch;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class PregReplaceTest extends TestCase
+class PregMatchTest extends TestCase
 {
     #[Test] public function pattern(): void
     {
@@ -20,5 +20,12 @@ class PregReplaceTest extends TestCase
         self::assertEquals('s', $User->s);
         self::assertNull($User->as_null);
         self::assertEquals([], $User->offset);
+    }
+
+    #[Test] public function allowsNull(): void
+    {
+        $User = User::from();
+
+        self::assertNull($User->name);
     }
 }
