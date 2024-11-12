@@ -4,6 +4,7 @@ namespace Zerotoprod\DataModelHelper;
 
 use ReflectionAttribute;
 use ReflectionProperty;
+use Zerotoprod\DataModel\PropertyRequiredException;
 use Zerotoprod\ValidateUrl\ValidateUrl;
 
 /**
@@ -127,11 +128,15 @@ trait DataModelHelper
      */
     public static function isUrl(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property): ?string
     {
+        $args = $Attribute?->getArguments()[0];
         if (!$value && $Property->getType()?->allowsNull()) {
             return null;
         }
 
-        $args = $Attribute?->getArguments()[0];
+        if (!$value || in_array('required', $args, true)) {
+            throw new PropertyRequiredException("Property `\${$Property->getName()}` is required");
+        }
+
         if (!is_string($value)) {
             if (isset($args['on_fail'])) {
                 call_user_func($args['on_fail'], $value, $context, $Attribute, $Property);
