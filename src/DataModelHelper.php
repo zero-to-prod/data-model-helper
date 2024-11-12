@@ -117,15 +117,17 @@ trait DataModelHelper
     }
 
     /**
-     * Perform a regular expression search and replace.
+     * Perform a regular expression match.
      *
-     * NOTE: If property allows null, null will be returned, else an empty string.
+     * NOTE: If property allows null, null will be returned.
      *
      * ```
      *  #[Describe([
-     *      'cast' => [self::class, 'pregReplace'],
-     *      'pattern' => '/s/', // any regular expression
-     *      'replacement' => '' // default
+     *      'cast' => [self::class, 'pregMatch'],
+     *      'pattern' => '/s/', // Required
+     *      'match_on' => 0 // Index of the $matches to return
+     *      'flags' => PREG_UNMATCHED_AS_NULL
+     *      'offset' => 0
      *  ])]
      * ```
      */
