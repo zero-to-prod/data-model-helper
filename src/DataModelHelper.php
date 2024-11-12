@@ -133,8 +133,8 @@ trait DataModelHelper
             return null;
         }
 
-        if (!$value || in_array('required', $args, true)) {
-            throw new PropertyRequiredException("Property `\${$Property->getName()}` is required");
+        if (!$value && in_array('required', $args, true)) {
+            throw new PropertyRequiredException("Property `\${$Property->getName()}` is required.");
         }
 
         if (!is_string($value)) {

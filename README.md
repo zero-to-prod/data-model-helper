@@ -459,6 +459,7 @@ class User
         'protocols' => ['http', 'udp'], // Optional. Defaults to all.
         'on_fail' => [MyAction::class, 'method'], // Optional. Invoked when validation fails.
         'exception' => InvalidUrlException::class, // Optional. Throws an exception when not url.
+        'required'  // Optional. Throws \Zerotoprod\DataModel\PropertyRequiredException::class
     ])]
     public string $url;
 }
