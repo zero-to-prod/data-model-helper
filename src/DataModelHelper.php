@@ -5,6 +5,7 @@ namespace Zerotoprod\DataModelHelper;
 use ReflectionAttribute;
 use ReflectionProperty;
 use Zerotoprod\DataModel\PropertyRequiredException;
+use Zerotoprod\ValidateEmail\ValidateEmail;
 use Zerotoprod\ValidateUrl\ValidateUrl;
 
 /**
@@ -159,7 +160,7 @@ trait DataModelHelper
      *       'cast' => [self::class, 'isUrl'],
      *       'protocols' => ['http', 'udp'], // Optional. Defaults to all.
      *       'on_fail' => [MyAction::class, 'method'], // Optional. Invoked when validation fails.
-     *       'exception' => InvalidUrlException::class, // Optional. Throws an exception when not url.
+     *       'exception' => MyException::class, // Optional. Throws an exception when not url.
      *   ])]
      *  ```
      */
@@ -185,6 +186,49 @@ trait DataModelHelper
         }
 
         if (!ValidateUrl::isUrl($value, $args['protocols'] ?? [])) {
+            if (isset($args['on_fail'])) {
+                call_user_func($args['on_fail'], $value, $context, $Attribute, $Property);
+            }
+            if (isset($args['exception'])) {
+                throw new $args['exception'];
+            }
+        }
+
+        return $value;
+    }
+
+    /**
+     * Determine if a given value is a valid URL.
+     *  ```
+     *   #[Describe([
+     *       'cast' => [self::class, 'isEmail'],
+     *       'on_fail' => [MyAction::class, 'method'], // Optional. Invoked when validation fails.
+     *       'exception' => MyException::class, // Optional. Throws an exception when not a valid email.
+     *   ])]
+     *  ```
+     */
+    public static function isEmail(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property): ?string
+    {
+        $args = $Attribute?->getArguments()[0];
+        if (!$value && $Property->getType()?->allowsNull()) {
+            return null;
+        }
+
+        if (!$value && in_array('required', $args, true)) {
+            throw new PropertyRequiredException("Property `\${$Property->getName()}` is required.");
+        }
+
+        if (!is_string($value)) {
+            if (isset($args['on_fail'])) {
+                call_user_func($args['on_fail'], $value, $context, $Attribute, $Property);
+            }
+
+            if (isset($args['exception'])) {
+                throw new $args['exception'];
+            }
+        }
+
+        if (!ValidateEmail::isEmail($value)) {
             if (isset($args['on_fail'])) {
                 call_user_func($args['on_fail'], $value, $context, $Attribute, $Property);
             }

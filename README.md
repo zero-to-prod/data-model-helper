@@ -38,6 +38,7 @@ class DataModelHelper
 - [pregReplace](#pregreplace): Perform a regular expression search and replace.
 - [pregMatch](#pregmatch): Perform a regular expression match.
 - [isUrl](#isurl): Validates a url.
+- [isEmail](#isemail): Validates an email.
 
 ### `mapOf`
 
@@ -474,7 +475,7 @@ echo $User->name; // Outputs: 's'
 
 ### `isUrl`
 
-Use `isUrl` to perform validate a url.
+Use `isUrl` to validate a url.
 
 ```php
 class User
@@ -486,7 +487,27 @@ class User
         'cast' => [self::class, 'isUrl'],
         'protocols' => ['http', 'udp'], // Optional. Defaults to all.
         'on_fail' => [MyAction::class, 'method'], // Optional. Invoked when validation fails.
-        'exception' => InvalidUrlException::class, // Optional. Throws an exception when not url.
+        'exception' => MyCustomException::class, // Optional. Throws an exception when not url.
+        'required'  // Optional. Throws \Zerotoprod\DataModel\PropertyRequiredException::class
+    ])]
+    public string $url;
+}
+```
+
+### `isEmail`
+
+Use `isEmail` to validate an email.
+
+```php
+class User
+{
+    use \Zerotoprod\DataModel\DataModel;
+    use \Zerotoprod\DataModelHelper\DataModelHelper;
+
+    #[Describe([
+        'cast' => [self::class, 'isEmail'],
+        'on_fail' => [MyAction::class, 'method'], // Optional. Invoked when validation fails.
+        'exception' => MyCustomException::class, // Optional. Throws an exception when not url.
         'required'  // Optional. Throws \Zerotoprod\DataModel\PropertyRequiredException::class
     ])]
     public string $url;
