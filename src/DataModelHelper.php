@@ -129,7 +129,7 @@ trait DataModelHelper
      *  ])]
      * ```
      */
-    public static function pregMatch(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property): array|string|null
+    public static function pregMatch(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property)
     {
         if (!$value && $Property->getType()?->allowsNull()) {
             return null;
@@ -142,7 +142,10 @@ trait DataModelHelper
         $args = $Attribute?->getArguments()[0];
         preg_match($args['pattern'], $value, $matches, $args['flags'] ?? 0, $args['offset'] ?? 0);
 
-        return isset($args['match_on'], $matches)
+        if(isset($args['match_on']) && !isset($matches[$args['match_on']])) {
+            return;
+        }
+        return isset($args['match_on'])
             ? $matches[$args['match_on']]
             : $matches;
     }
