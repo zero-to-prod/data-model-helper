@@ -127,7 +127,7 @@ trait DataModelHelper
      */
     public static function isUrl(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property): ?string
     {
-        if (!$value) {
+        if (!$value && $Property->getType()?->allowsNull()) {
             return null;
         }
 
