@@ -11,6 +11,7 @@ class RequiredTest extends TestCase
     #[Test] public function required(): void
     {
         $this->expectException(PropertyRequiredException::class);
+        $this->expectExceptionMessage('Property `$url` is required.');
         User::from();
     }
 
