@@ -31,13 +31,15 @@ trait DataModelHelper
      *  use \Zerotoprod\DataModelHelper\DataModelHelper;
      *
      *  #[Describe([
-     *      'cast'    => [DataModelHelper::class, 'mapOf'], // Casting method to use
-     *      'type'    => Alias::class,                      // Target type for each item
-     *      'coerce'  => true,                              // Coerce single elements into an array
-     *      'using'   => [User::class, 'map'],              // Custom mapping function
-     *      'map_via' => 'mapper',                          // Custom mapping method (defaults to 'map')
-     *      'level'   => 1,                                 // The dimension of the array. Defaults to 1.
-     *      'key_by' => 'key',                              // Key an associative array by a field.
+     *      'cast' => [self::class, 'mapOf'], // Casting method to use
+     *      'type' => Alias::class,           // Target type for each item
+     *      'required',                       // Throws PropertyRequiredException when value not present
+     *      'coerce' => true,                 // Coerce single elements into an array
+     *      'using' => [self::class, 'map'],  // Custom mapping function
+     *      'map_via' => 'mapper',            // Custom mapping method (defaults to 'map')
+     *      'map' => [self::class, 'keyBy'],  // Run a function for that value.
+     *      'level' => 1,                     // The dimension of the array. Defaults to 1.
+     *      'key_by' => 'key',                // Key an associative array by a field.
      *  ])]
      *  public Collection $Aliases;
      * }
@@ -53,11 +55,17 @@ trait DataModelHelper
      */
     public static function mapOf(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property)
     {
+        $args = $Attribute?->getArguments()[0];
+        if ((!empty($args['required']) || in_array('required', $args, true))
+            && !isset($context[$Property->getName()])
+        ) {
+            throw new PropertyRequiredException("Property `\${$Property->getName()}` is required.");
+        }
+
         if (!$value && $Property->getType()?->allowsNull()) {
             return null;
         }
 
-        $args = $Attribute?->getArguments()[0];
         $value = isset($args['coerce']) && !isset($value[0]) ? [$value] : $value;
 
         if (isset($args['using'])) {
@@ -99,20 +107,26 @@ trait DataModelHelper
      * ```
      *  #[Describe([
      *      'cast' => [self::class, 'pregReplace'],
-     *      'pattern' => '/s/', // any regular expression
-     *      'replacement' => '' // default
+     *      'pattern' => '/s/',     // any regular expression
+     *      'replacement' => '',    // default
+     *      'required',             // Throws PropertyRequiredException when value not present
      *  ])]
      * ```
      */
     public static function pregReplace(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property): array|string|null
     {
+        $args = $Attribute?->getArguments()[0];
+        if ((!empty($args['required']) || in_array('required', $args, true))
+            && !isset($context[$Property->getName()])
+        ) {
+            throw new PropertyRequiredException("Property `\${$Property->getName()}` is required.");
+        }
+
         if (!$value) {
             return $Property->getType()?->allowsNull()
                 ? null
                 : '';
         }
-
-        $args = $Attribute?->getArguments()[0];
 
         return preg_replace($args['pattern'], $args['replacement'] ?? '', $value);
     }
@@ -125,15 +139,23 @@ trait DataModelHelper
      * ```
      *  #[Describe([
      *      'cast' => [self::class, 'pregMatch'],
-     *      'pattern' => '/s/', // Required
-     *      'match_on' => 0 // Index of the $matches to return
+     *      'pattern' => '/s/',     // Required
+     *      'match_on' => 0         // Index of the $matches to return
      *      'flags' => PREG_UNMATCHED_AS_NULL
-     *      'offset' => 0
+     *      'offset' => 0,
+     *      'required',             // Throws PropertyRequiredException when value not present
      *  ])]
      * ```
      */
     public static function pregMatch(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property)
     {
+        $args = $Attribute?->getArguments()[0];
+        if ((!empty($args['required']) || in_array('required', $args, true))
+            && !isset($context[$Property->getName()])
+        ) {
+            throw new PropertyRequiredException("Property `\${$Property->getName()}` is required.");
+        }
+
         if (!$value && $Property->getType()?->allowsNull()) {
             return null;
         }
@@ -142,12 +164,12 @@ trait DataModelHelper
             return $value;
         }
 
-        $args = $Attribute?->getArguments()[0];
         preg_match($args['pattern'], $value, $matches, $args['flags'] ?? 0, $args['offset'] ?? 0);
 
-        if(isset($args['match_on']) && !isset($matches[$args['match_on']])) {
+        if (isset($args['match_on']) && !isset($matches[$args['match_on']])) {
             return;
         }
+
         return isset($args['match_on'])
             ? $matches[$args['match_on']]
             : $matches;
@@ -158,21 +180,24 @@ trait DataModelHelper
      *  ```
      *   #[Describe([
      *       'cast' => [self::class, 'isUrl'],
-     *       'protocols' => ['http', 'udp'], // Optional. Defaults to all.
-     *       'on_fail' => [MyAction::class, 'method'], // Optional. Invoked when validation fails.
-     *       'exception' => MyException::class, // Optional. Throws an exception when not url.
+     *       'protocols' => ['http', 'udp'],            // Optional. Defaults to all.
+     *       'on_fail' => [MyAction::class, 'method'],  // Optional. Invoked when validation fails.
+     *       'exception' => MyException::class,         // Optional. Throws an exception when not url.
+     *       'required',                                // Throws PropertyRequiredException when value not present
      *   ])]
      *  ```
      */
     public static function isUrl(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property): ?string
     {
         $args = $Attribute?->getArguments()[0];
-        if (!$value && $Property->getType()?->allowsNull()) {
-            return null;
+        if ((!empty($args['required']) || in_array('required', $args, true))
+            && !isset($context[$Property->getName()])
+        ) {
+            throw new PropertyRequiredException("Property `\${$Property->getName()}` is required.");
         }
 
-        if (!$value && in_array('required', $args, true)) {
-            throw new PropertyRequiredException("Property `\${$Property->getName()}` is required.");
+        if (!$value && $Property->getType()?->allowsNull()) {
+            return null;
         }
 
         if (!is_string($value)) {
@@ -202,20 +227,23 @@ trait DataModelHelper
      *  ```
      *   #[Describe([
      *       'cast' => [self::class, 'isEmail'],
-     *       'on_fail' => [MyAction::class, 'method'], // Optional. Invoked when validation fails.
-     *       'exception' => MyException::class, // Optional. Throws an exception when not a valid email.
+     *       'on_fail' => [MyAction::class, 'method'],  // Optional. Invoked when validation fails.
+     *       'exception' => MyException::class,         // Optional. Throws an exception when not a valid email.
+     *       'required',                                // Throws PropertyRequiredException when value not present
      *   ])]
      *  ```
      */
     public static function isEmail(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property): ?string
     {
         $args = $Attribute?->getArguments()[0];
-        if (!$value && $Property->getType()?->allowsNull()) {
-            return null;
+        if ((!empty($args['required']) || in_array('required', $args, true))
+            && !isset($context[$Property->getName()])
+        ) {
+            throw new PropertyRequiredException("Property `\${$Property->getName()}` is required.");
         }
 
-        if (!$value && in_array('required', $args, true)) {
-            throw new PropertyRequiredException("Property `\${$Property->getName()}` is required.");
+        if (!$value && $Property->getType()?->allowsNull()) {
+            return null;
         }
 
         if (!is_string($value)) {
