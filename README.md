@@ -54,14 +54,15 @@ class User
     
     /** @var Collection<int, Alias> $Aliases */
     #[Describe([
-        'cast'    => [self::class, 'mapOf'],    // Casting method to use
-        'type'    => Alias::class,              // Target type for each item
-        'coerce'  => true,                      // Coerce single elements into an array
-        'using'   => [self::class, 'map'],      // Custom mapping function
-        'map_via' => 'mapper',                  // Custom mapping method (defaults to 'map')
-        'map' => [self::class, 'keyBy'],        // Run a function for that value.
-        'level' => 1,                           // The dimension of the array. Defaults to 1.
-        'key_by' => 'key',                      // Key an associative array by a field.
+        'cast' => [self::class, 'mapOf'], // Casting method to use
+        'type' => Alias::class,           // Target type for each item
+        'required',                       // Throws PropertyRequiredException when value not present
+        'coerce' => true,                 // Coerce single elements into an array
+        'using' => [self::class, 'map'],  // Custom mapping function
+        'map_via' => 'mapper',            // Custom mapping method (defaults to 'map')
+        'map' => [self::class, 'keyBy'],  // Run a function for that value.
+        'level' => 1,                     // The dimension of the array. Defaults to 1.
+        'key_by' => 'key',                // Key an associative array by a field.
     ])]
     public Collection $Aliases;
 }
@@ -81,8 +82,9 @@ class User
     
     /** @var Alias[] $Aliases */
     #[Describe([
-        'cast' => [self::class, 'mapOf'],   // Use the mapOf helper method
-        'type' => Alias::class,             // Target type for each item
+        'cast' => [self::class, 'mapOf'],  // Use the mapOf helper method
+        'type' => Alias::class,            // Target type for each item
+        'required',                        // Throws PropertyRequiredException when value not present
     ])]
     public array $Aliases;
 }
@@ -121,6 +123,7 @@ class User
     #[Describe([
         'cast' => [self::class, 'mapOf'],
         'type' => Alias::class,
+        'required', // Throws PropertyRequiredException when value not present
     ])]
     public \Illuminate\Support\Collection $Aliases;
 }
@@ -161,6 +164,7 @@ class User
         'cast'   => [self::class, 'mapOf'],
         'type'   => Alias::class,
         'coerce' => true, // Coerce single elements into an array
+        'required',       // Throws PropertyRequiredException when value not present
     ])]
     public array $Aliases;
 }
@@ -196,6 +200,7 @@ class User
         'cast'  => [self::class, 'mapOf'],
         'type'  => Alias::class,
         'using' => [self::class, 'map'], // Use custom mapping function
+        'required',                      // Throws PropertyRequiredException when value not present
     ])]
     public Collection $Aliases;
 
@@ -252,6 +257,7 @@ class User
         'cast'    => [self::class, 'mapOf'],
         'type'    => Alias::class,
         'map_via' => 'mapper', // Use custom mapping method for the `Collection` class.
+        'required',            // Throws PropertyRequiredException when value not present
     ])]
     public Collection $Aliases;
 }
@@ -305,6 +311,7 @@ class User
         'cast' => [self::class, 'mapOf'],   // Use the mapOf helper method
         'type' => Alias::class,             // Target type for each item
         'level' => 2,                       // The dimension of the array. Defaults to 1.
+        'required',                         // Throws PropertyRequiredException when value not present
     ])]
     public array $Aliases;
 }
@@ -346,6 +353,7 @@ class User
         'cast' => [self::class, 'mapOf'],   
         'type' => Alias::class,             
         'key_by' => 'id',
+        'required', // Throws PropertyRequiredException when value not present
     ])]
     public array $Aliases;
 }
@@ -390,6 +398,7 @@ class User
         'cast' => [self::class, 'mapOf'],   
         'type' => Alias::class,             
         'map' => [self::class, 'keyBy'],
+        'required', // Throws PropertyRequiredException when value not present
     ])]
     public Collection $Aliases;
     
@@ -435,6 +444,7 @@ class User
         'cast' => [self::class, 'pregReplace'],
         'pattern' => ascii_only,
         'replacement' => '!' // defaults to '' when not specified
+        'required',          // Throws PropertyRequiredException when value not present
     ])]
     public string $name;
 }
@@ -461,7 +471,8 @@ class User
         'pattern' => '/s/', // Required
         'match_on' => 0 // Index of the $matches to return
         'flags' => PREG_UNMATCHED_AS_NULL
-        'offset' => 0
+        'offset' => 0,
+        'required', // Throws PropertyRequiredException when value not present
     ])]
     public string $name;
 }
