@@ -34,12 +34,34 @@ class DataModelHelper
 
 ## Helper Methods
 
+- [when](#when): Create a map of any type by using
 - [mapOf](#mapof): Create a map of any type by using
 - [pregReplace](#pregreplace): Perform a regular expression search and replace.
 - [pregMatch](#pregmatch): Perform a regular expression match.
 - [isUrl](#isurl): Validates a url.
 - [isEmail](#isemail): Validates an email.
 - [isMultiple](#ismultiple): Validate a value is a multiple of another.
+
+### `when`
+
+Use `when` to call a function based on a condition.
+
+```php
+class User
+{
+    use \Zerotoprod\DataModel\DataModel;
+    use \Zerotoprod\DataModelHelper\DataModelHelper;
+
+    #[Describe([
+        'cast' => [self::class, 'when'],
+        'eval' => '$value >= $context["value_2"]' // The expression to evaluate.
+        'true' => [MyAction::class, 'passed'],    // Optional. Invoked when condition is true.
+        'false' => [MyAction::class, 'failed'],   // Optional. Invoked when condition is true.
+        'required',                               // Throws PropertyRequiredException when value not present.
+    ])]
+    public string $value;
+}
+```
 
 ### `mapOf`
 

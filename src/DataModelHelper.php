@@ -314,4 +314,40 @@ trait DataModelHelper
 
         return $value;
     }
+
+    /**
+     * Determine if a given value is a valid URL.
+     *  ```
+     *   #[Describe([
+     *       'cast' => [self::class, 'when'],
+     *       'eval' => '$value >= $context["value_2"]' // The expression to evaluate.
+     *       'true' => [MyAction::class, 'passed'],    // Optional. Invoked when condition is true.
+     *       'false' => [MyAction::class, 'failed'],   // Optional. Invoked when condition is true.
+     *       'required',                               // Throws PropertyRequiredException when value not present.
+     *   ])]
+     *  ```
+     */
+    public static function when(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property): ?string
+    {
+        $args = $Attribute?->getArguments()[0];
+        if ((!empty($args['required']) || in_array('required', $args, true))
+            && !isset($context[$Property->getName()])
+        ) {
+            throw new PropertyRequiredException("Property `\${$Property->getName()}` is required.");
+        }
+
+        if (!$value && $Property->getType()?->allowsNull()) {
+            return null;
+        }
+
+        if (eval("return {$args['eval']};")) {
+            if (isset($args['true'])) {
+                return call_user_func($args['true'], $value, $context, $Attribute, $Property);
+            }
+        } elseif (isset($args['false'])) {
+            return call_user_func($args['false'], $value, $context, $Attribute, $Property);
+        }
+
+        return $value;
+    }
 }
