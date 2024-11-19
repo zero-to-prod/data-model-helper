@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\IsEmail\ValidUrl;
+namespace Tests\Unit\IsEmail\ValidEmail;
 
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;

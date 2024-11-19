@@ -39,6 +39,7 @@ class DataModelHelper
 - [pregMatch](#pregmatch): Perform a regular expression match.
 - [isUrl](#isurl): Validates a url.
 - [isEmail](#isemail): Validates an email.
+- [isMultiple](#ismultiple): Validate a value is a multiple of another.
 
 ### `mapOf`
 
@@ -486,7 +487,7 @@ echo $User->name; // Outputs: 's'
 
 ### `isUrl`
 
-Use `isUrl` to validate a url.
+Use `isUrl` to validate an url.
 
 ```php
 class User
@@ -521,6 +522,27 @@ class User
         'exception' => MyCustomException::class, // Optional. Throws an exception when not url.
         'required'  // Optional. Throws \Zerotoprod\DataModel\PropertyRequiredException::class
     ])]
+    public string $url;
+}
+```
+
+### `isMultiple`
+
+Use `isMultiple` to validate a value is a multiple of another.
+
+```php
+class User
+{
+    use \Zerotoprod\DataModel\DataModel;
+    use \Zerotoprod\DataModelHelper\DataModelHelper;
+
+     #[Describe([
+         'cast' => [self::class, 'isMultiple'],
+         'of' => 2                                  // The number the value is a multiple of
+         'on_fail' => [MyAction::class, 'method'],  // Optional. Invoked when validation fails.
+         'exception' => MyException::class,         // Optional. Throws an exception when not a valid email.
+         'required',                                // Throws PropertyRequiredException when value not present.
+     ])]
     public string $url;
 }
 ```

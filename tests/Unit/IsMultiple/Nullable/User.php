@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\IsEmail\ValidUrl;
+namespace Tests\Unit\IsMultiple\Nullable;
 
 use Zerotoprod\DataModel\DataModel;
 use Zerotoprod\DataModel\Describe;
@@ -11,10 +11,11 @@ class User
     use DataModel;
     use DataModelHelper;
 
-    public const email = 'email';
+    public const value = 'value';
 
     #[Describe([
-        'cast' => [self::class, 'isEmail']
+        'cast' => [self::class, 'isMultiple'],
+        'of' => 10
     ])]
-    public ?string $email;
+    public ?int $value;
 }

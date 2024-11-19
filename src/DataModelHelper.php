@@ -109,7 +109,7 @@ trait DataModelHelper
      *      'cast' => [self::class, 'pregReplace'],
      *      'pattern' => '/s/',     // any regular expression
      *      'replacement' => '',    // default
-     *      'required',             // Throws PropertyRequiredException when value not present
+     *      'required',             // Throws PropertyRequiredException when value not present.
      *  ])]
      * ```
      */
@@ -143,7 +143,7 @@ trait DataModelHelper
      *      'match_on' => 0         // Index of the $matches to return
      *      'flags' => PREG_UNMATCHED_AS_NULL
      *      'offset' => 0,
-     *      'required',             // Throws PropertyRequiredException when value not present
+     *      'required',             // Throws PropertyRequiredException when value not present.
      *  ])]
      * ```
      */
@@ -183,7 +183,7 @@ trait DataModelHelper
      *       'protocols' => ['http', 'udp'],            // Optional. Defaults to all.
      *       'on_fail' => [MyAction::class, 'method'],  // Optional. Invoked when validation fails.
      *       'exception' => MyException::class,         // Optional. Throws an exception when not url.
-     *       'required',                                // Throws PropertyRequiredException when value not present
+     *       'required',                                // Throws PropertyRequiredException when value not present.
      *   ])]
      *  ```
      */
@@ -229,7 +229,7 @@ trait DataModelHelper
      *       'cast' => [self::class, 'isEmail'],
      *       'on_fail' => [MyAction::class, 'method'],  // Optional. Invoked when validation fails.
      *       'exception' => MyException::class,         // Optional. Throws an exception when not a valid email.
-     *       'required',                                // Throws PropertyRequiredException when value not present
+     *       'required',                                // Throws PropertyRequiredException when value not present.
      *   ])]
      *  ```
      */
@@ -257,6 +257,53 @@ trait DataModelHelper
         }
 
         if (!ValidateEmail::isEmail($value)) {
+            if (isset($args['on_fail'])) {
+                call_user_func($args['on_fail'], $value, $context, $Attribute, $Property);
+            }
+            if (isset($args['exception'])) {
+                throw new $args['exception'];
+            }
+        }
+
+        return $value;
+    }
+
+    /**
+     * Determine if a given value is a valid URL.
+     *  ```
+     *   #[Describe([
+     *       'cast' => [self::class, 'isMultiple'],
+     *       'of' => 2                                  // The number the value is a multiple of
+     *       'on_fail' => [MyAction::class, 'method'],  // Optional. Invoked when validation fails.
+     *       'exception' => MyException::class,         // Optional. Throws an exception when not a valid email.
+     *       'required',                                // Throws PropertyRequiredException when value not present.
+     *   ])]
+     *  ```
+     */
+    public static function isMultiple(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property): ?string
+    {
+        $args = $Attribute?->getArguments()[0];
+        if ((!empty($args['required']) || in_array('required', $args, true))
+            && !isset($context[$Property->getName()])
+        ) {
+            throw new PropertyRequiredException("Property `\${$Property->getName()}` is required.");
+        }
+
+        if (!$value && $Property->getType()?->allowsNull()) {
+            return null;
+        }
+
+        if (!is_string($value)) {
+            if (isset($args['on_fail'])) {
+                call_user_func($args['on_fail'], $value, $context, $Attribute, $Property);
+            }
+
+            if (isset($args['exception'])) {
+                throw new $args['exception'];
+            }
+        }
+
+        if ((int)$value % $args['of'] !== 0) {
             if (isset($args['on_fail'])) {
                 call_user_func($args['on_fail'], $value, $context, $Attribute, $Property);
             }
