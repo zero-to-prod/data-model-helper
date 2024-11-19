@@ -487,7 +487,7 @@ echo $User->name; // Outputs: 's'
 
 ### `isUrl`
 
-Use `isUrl` to validate a url.
+Use `isUrl` to validate an url.
 
 ```php
 class User
