@@ -327,7 +327,7 @@ trait DataModelHelper
      *   ])]
      *  ```
      */
-    public static function when(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property): ?string
+    public static function when(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property)
     {
         $args = $Attribute?->getArguments()[0];
         if ((!empty($args['required']) || in_array('required', $args, true))
