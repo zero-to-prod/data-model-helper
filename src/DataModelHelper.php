@@ -62,7 +62,7 @@ trait DataModelHelper
             throw new PropertyRequiredException("Property `\${$Property->getName()}` is required.");
         }
 
-        if (!$value && $Property->getType()?->allowsNull()) {
+        if (!isset($context[$Property->getName()]) && $Property->getType()?->allowsNull()) {
             return null;
         }
 
@@ -122,7 +122,7 @@ trait DataModelHelper
             throw new PropertyRequiredException("Property `\${$Property->getName()}` is required.");
         }
 
-        if (!$value) {
+        if (!isset($context[$Property->getName()])) {
             return $Property->getType()?->allowsNull()
                 ? null
                 : '';
@@ -156,7 +156,7 @@ trait DataModelHelper
             throw new PropertyRequiredException("Property `\${$Property->getName()}` is required.");
         }
 
-        if (!$value && $Property->getType()?->allowsNull()) {
+        if (!isset($context[$Property->getName()]) && $Property->getType()?->allowsNull()) {
             return null;
         }
 
@@ -196,7 +196,7 @@ trait DataModelHelper
             throw new PropertyRequiredException("Property `\${$Property->getName()}` is required.");
         }
 
-        if (!$value && $Property->getType()?->allowsNull()) {
+        if (!isset($context[$Property->getName()]) && $Property->getType()?->allowsNull()) {
             return null;
         }
 
@@ -242,7 +242,7 @@ trait DataModelHelper
             throw new PropertyRequiredException("Property `\${$Property->getName()}` is required.");
         }
 
-        if (!$value && $Property->getType()?->allowsNull()) {
+        if (!isset($context[$Property->getName()]) && $Property->getType()?->allowsNull()) {
             return null;
         }
 
@@ -289,7 +289,7 @@ trait DataModelHelper
             throw new PropertyRequiredException("Property `\${$Property->getName()}` is required.");
         }
 
-        if (!$value && $Property->getType()?->allowsNull()) {
+        if (!isset($context[$Property->getName()]) && $Property->getType()?->allowsNull()) {
             return null;
         }
 
@@ -336,7 +336,7 @@ trait DataModelHelper
             throw new PropertyRequiredException("Property `\${$Property->getName()}` is required.");
         }
 
-        if (!$value && $Property->getType()?->allowsNull()) {
+        if (!isset($context[$Property->getName()]) && $Property->getType()?->allowsNull()) {
             return null;
         }
 
