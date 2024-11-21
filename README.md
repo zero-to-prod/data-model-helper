@@ -54,7 +54,7 @@ class User
 
     #[Describe([
         'cast' => [self::class, 'when'],
-        'eval' => <<<'PHP'                      // Provides (mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property)
+        'eval' => <<<'PHP'                      // Provides (mixed $value, array $context, ?ReflectionAttribute $Attribute, ?ReflectionProperty $Property)
             $value >= $context["value_2"]       // The expression to evaluate.
         PHP,
         'true' => [MyAction::class, 'passed'],  // Optional. Invoked when condition is true.
