@@ -318,13 +318,15 @@ trait DataModelHelper
     /**
      * Determine if a given value is a valid URL.
      *  ```
-     *   #[Describe([
-     *       'cast' => [self::class, 'when'],
-     *       'eval' => '$value >= $context["value_2"]' // The expression to evaluate.
-     *       'true' => [MyAction::class, 'passed'],    // Optional. Invoked when condition is true.
-     *       'false' => [MyAction::class, 'failed'],   // Optional. Invoked when condition is true.
-     *       'required',                               // Throws PropertyRequiredException when value not present.
-     *   ])]
+     *  #[Describe([
+     *      'cast' => [self::class, 'when'],
+     *      'eval' => <<<'PHP'                      // Provides (mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property)
+     *          $value >= $context["value_2"]       // The expression to evaluate.
+     *      PHP,
+     *      'true' => [MyAction::class, 'passed'],  // Optional. Invoked when condition is true.
+     *      'false' => [MyAction::class, 'failed'], // Optional. Invoked when condition is true.
+     *      'required',                             // Throws PropertyRequiredException when value not present.
+     *  ])]
      *  ```
      */
     public static function when(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property)
