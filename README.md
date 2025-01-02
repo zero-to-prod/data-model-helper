@@ -9,6 +9,7 @@
 [![Packagist Version](https://img.shields.io/packagist/v/zero-to-prod/data-model-helper?color=f28d1a)](https://packagist.org/packages/zero-to-prod/data-model-helper)
 [![License](https://img.shields.io/packagist/l/zero-to-prod/data-model-helper?color=pink)](https://github.com/zero-to-prod/data-model-helper/blob/main/LICENSE.md)
 [![wakatime](https://wakatime.com/badge/github/zero-to-prod/data-model-helper.svg)](https://wakatime.com/badge/github/zero-to-prod/data-model-helper)
+[![Hits-of-Code](https://hitsofcode.com/github/zero-to-prod//data-model-helper?branch=main)](https://hitsofcode.com/github/zero-to-prod//data-model-helper/view?branch=main)
 
 Utilities for casting values using the [DataModel](https://github.com/zero-to-prod/data-model) package.
 
