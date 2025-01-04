@@ -8,12 +8,33 @@
   ],
   "homepage": "https://github.com/zero-to-prod/data-model-helper",
   "license": "MIT",
+  "readme": "./README.md",
   "authors": [
     {
       "name": "David Smith",
-      "email": "dave0016@gmail.com"
+      "email": "dave0016@gmail.com",
+      "homepage": "https://davidsmith.blog/",
+      "role": "maintainer"
     }
   ],
+  "funding": [
+    {
+      "type": "GitHub",
+      "url": "https://github.com/sponsors/zero-to-prod"
+    }
+  ],
+  "scripts": {
+    "test-all": [
+      "sh test.sh"
+    ],
+    "docker": [
+      "docker compose run --rm "
+    ]
+  },
+  "scripts-descriptions": {
+    "test-all": "tests all php versions",
+    "docker": "runs a docker container"
+  },
   "require": {
     "php": ">=8.1.0",
     "zero-to-prod/data-model": "^v81.0.0",
