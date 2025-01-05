@@ -7,6 +7,13 @@
     "data-model-helper"
   ],
   "homepage": "https://github.com/zero-to-prod/data-model-helper",
+  "support": {
+    "email": "dave0016@gmail.com",
+    "issues": "https://github.com/zero-to-prod/data-model-helper/issues",
+    "source": "https://github.com/zero-to-prod/data-model",
+    "docs": "https://zero-to-prod.github.io/data-model-helper/",
+    "security": "https://github.com/zero-to-prod/data-model-helper/blob/main/SECURITY.md"
+  },
   "license": "MIT",
   "readme": "./README.md",
   "authors": [
