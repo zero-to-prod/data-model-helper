@@ -30,18 +30,6 @@
       "url": "https://github.com/sponsors/zero-to-prod"
     }
   ],
-  "scripts": {
-    "test-all": [
-      "sh test.sh"
-    ],
-    "docker": [
-      "docker compose run --rm "
-    ]
-  },
-  "scripts-descriptions": {
-    "test-all": "tests all php versions",
-    "docker": "runs a docker container"
-  },
   "require": {
     "php": ">=8.1.0",
     "zero-to-prod/data-model": "^v81.0.0",
