@@ -8,3 +8,5 @@ composer.lock
 /vendor-php82/
 /vendor-php83/
 /vendor-php84/
+.vendor/
+.env
