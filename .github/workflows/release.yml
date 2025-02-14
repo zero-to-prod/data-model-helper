@@ -1,0 +1,44 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate Release Notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo '')
+          SINCE_DATE=$(git log -1 --format=%aI $PREV_TAG)
+
+          git fetch origin main:refs/remotes/origin/main
+
+          gh pr list \
+            --base main \
+            --state merged \
+            --json title,number,author \
+            --search "merged:>=$SINCE_DATE" | \
+          jq -r '.[] | "- \(.title) by @\(.author.login) in #\(.number)"' > pr_notes.txt
+
+          git log --pretty=format:'%H' origin/main "$PREV_TAG"..HEAD --no-merges | \
+          xargs -I {} sh -c 'git show -s --format="- %s by %an <%ae> in https://github.com/$REPO/commit/{}" {}' | \
+          grep -v "Merge pull request" > commit_notes.txt
+
+          cat pr_notes.txt commit_notes.txt | sort > RELEASE_NOTES.md
+      - uses: softprops/action-gh-release@v2
+        with:
+          body_path: RELEASE_NOTES.md
