@@ -112,6 +112,8 @@ trait DataModelHelper
      *      'required',             // Throws PropertyRequiredException when value not present.
      *  ])]
      * ```
+     *
+     * @link https://github.com/zero-to-prod/data-model-helper
      */
     public static function pregReplace(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property): array|string|null
     {
@@ -146,6 +148,8 @@ trait DataModelHelper
      *      'required',             // Throws PropertyRequiredException when value not present.
      *  ])]
      * ```
+     *
+     * @link https://github.com/zero-to-prod/data-model-helper
      */
     public static function pregMatch(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property)
     {
@@ -186,6 +190,8 @@ trait DataModelHelper
      *       'required',                                // Throws PropertyRequiredException when value not present.
      *   ])]
      *  ```
+     *
+     * @link https://github.com/zero-to-prod/data-model-helper
      */
     public static function isUrl(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property): ?string
     {
@@ -232,6 +238,8 @@ trait DataModelHelper
      *       'required',                                // Throws PropertyRequiredException when value not present.
      *   ])]
      *  ```
+     *
+     * @link https://github.com/zero-to-prod/data-model-helper
      */
     public static function isEmail(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property): ?string
     {
@@ -279,6 +287,8 @@ trait DataModelHelper
      *       'required',                                // Throws PropertyRequiredException when value not present.
      *   ])]
      *  ```
+     *
+     * @link https://github.com/zero-to-prod/data-model-helper
      */
     public static function isMultiple(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property): ?string
     {
@@ -328,6 +338,8 @@ trait DataModelHelper
      *      'required',                             // Throws PropertyRequiredException when value not present.
      *  ])]
      *  ```
+     *
+     * @link https://github.com/zero-to-prod/data-model-helper
      */
     public static function when(mixed $value, array $context, ?ReflectionAttribute $Attribute, ReflectionProperty $Property)
     {
