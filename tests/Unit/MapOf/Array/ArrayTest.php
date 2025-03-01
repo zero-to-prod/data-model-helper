@@ -13,11 +13,16 @@ class ArrayTest extends TestCase
             'Aliases' => [
                 ['name' => 'John Doe'],
                 ['name' => 'John Smith'],
+            ],
+            'Names' => [
+                Name::Tom->value,
+                Name::John->value,
             ]
         ]);
 
         self::assertEquals('John Doe', $User->Aliases[0]->name);
         self::assertEquals('John Smith', $User->Aliases[1]->name);
+        self::assertEquals(Name::Tom, $User->Names[0]);
     }
 
     #[Test] public function nested(): void
