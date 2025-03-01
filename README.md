@@ -119,6 +119,8 @@ class User
 
 In this case the `mapOf()` method returns an array of `Alias` instances.
 
+This method will also work with enums.
+
 ```php
 use Zerotoprod\DataModel\Describe;
 
@@ -134,6 +136,13 @@ class User
         'required',                        // Throws PropertyRequiredException when value not present
     ])]
     public array $Aliases;
+    
+    /** @var Name[] $Names */
+    #[Describe([
+        'cast' => [self::class, 'mapOf'],
+        'type' => Name::class,
+    ])]
+    public ?array $Names;
 }
 
 class Alias
@@ -143,15 +152,27 @@ class Alias
     public string $name;
 }
 
+enum Name: string
+{
+    case Tom = 'Tom';
+    case John = 'John';
+}
+
 $User = User::from([
     'Aliases' => [
         ['name' => 'John Doe'],
         ['name' => 'John Smith'],
+    ],
+    'Names' => [
+        'Tom',
+        'John',
     ]
 ]);
 
 echo $User->Aliases[0]->name; // Outputs: John Doe
 echo $User->Aliases[1]->name; // Outputs: John Smith
+echo $User->Names[0]; // Enum Name::Tom
+echo $User->Names[1]; // Enum Name::John
 ```
 
 #### Laravel Collection Example
