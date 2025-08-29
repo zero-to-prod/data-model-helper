@@ -1,57 +1,60 @@
 {
-  "type": "library",
-  "name": "zero-to-prod/data-model-helper",
-  "description": "Helpers for a DataModel.",
-  "keywords": [
-    "zero-to-prod",
-    "data-model-helper"
-  ],
-  "homepage": "https://github.com/zero-to-prod/data-model-helper",
-  "support": {
-    "email": "dave0016@gmail.com",
-    "issues": "https://github.com/zero-to-prod/data-model-helper/issues",
-    "source": "https://github.com/zero-to-prod/data-model-helper",
-    "docs": "https://zero-to-prod.github.io/data-model-helper",
-    "security": "https://github.com/zero-to-prod/data-model-helper/blob/main/SECURITY.md"
-  },
-  "license": "MIT",
-  "readme": "./README.md",
-  "authors": [
-    {
-      "name": "David Smith",
-      "email": "dave0016@gmail.com",
-      "homepage": "https://davidsmith.blog/",
-      "role": "maintainer"
+    "type": "library",
+    "name": "zero-to-prod/data-model-helper",
+    "description": "Helpers for a DataModel.",
+    "keywords": [
+        "zero-to-prod",
+        "data-model-helper"
+    ],
+    "homepage": "https://github.com/zero-to-prod/data-model-helper",
+    "support": {
+        "email": "dave0016@gmail.com",
+        "issues": "https://github.com/zero-to-prod/data-model-helper/issues",
+        "source": "https://github.com/zero-to-prod/data-model-helper",
+        "docs": "https://zero-to-prod.github.io/data-model-helper",
+        "security": "https://github.com/zero-to-prod/data-model-helper/blob/main/SECURITY.md"
+    },
+    "license": "MIT",
+    "readme": "./README.md",
+    "authors": [
+        {
+            "name": "David Smith",
+            "email": "dave0016@gmail.com",
+            "homepage": "https://davidsmith.blog/",
+            "role": "maintainer"
+        }
+    ],
+    "funding": [
+        {
+            "type": "GitHub",
+            "url": "https://github.com/sponsors/zero-to-prod"
+        }
+    ],
+    "require": {
+        "php": ">=8.1.0",
+        "zero-to-prod/data-model": "^v81.0.0",
+        "zero-to-prod/validate-url": "^71.0",
+        "zero-to-prod/validate-email": "^71.0",
+        "zero-to-prod/package-helper": "^1.1.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Zerotoprod\\DataModelHelper\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "<12.0"
+    },
+    "bin": [
+        "bin/zero-to-prod-data-model-factory"
+    ],
+    "suggest": {
+        "zero-to-prod/transformable": "Transform a class into different types.",
+        "zero-to-prod/data-model-factory": "Factories for a DataModel."
     }
-  ],
-  "funding": [
-    {
-      "type": "GitHub",
-      "url": "https://github.com/sponsors/zero-to-prod"
-    }
-  ],
-  "require": {
-    "php": ">=8.1.0",
-    "zero-to-prod/data-model": "^v81.0.0",
-    "zero-to-prod/validate-url": "^71.0",
-    "zero-to-prod/validate-email": "^71.0",
-    "zero-to-prod/package-helper": "^1.1.3"
-  },
-  "autoload": {
-    "psr-4": {
-      "Zerotoprod\\DataModelHelper\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Tests\\": "tests/"
-    }
-  },
-  "require-dev": {
-    "phpunit/phpunit": "<12.0"
-  },
-  "suggest": {
-    "zero-to-prod/transformable": "Transform a class into different types.",
-    "zero-to-prod/data-model-factory": "Factories for a DataModel."
-  }
 }
