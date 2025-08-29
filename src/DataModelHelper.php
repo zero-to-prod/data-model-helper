@@ -96,7 +96,7 @@ trait DataModelHelper
                     );
         };
 
-        return $mapper($value, $args['level'] ?? 1);
+        return $mapper($value ?? [], $args['level'] ?? 1);
     }
 
     /**
