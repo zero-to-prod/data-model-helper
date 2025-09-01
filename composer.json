@@ -51,7 +51,8 @@
         "phpunit/phpunit": "<12.0"
     },
     "bin": [
-        "bin/zero-to-prod-data-model-factory"
+        "bin/zero-to-prod-data-model-factory",
+        "bin/zero-to-prod-data-model-helper"
     ],
     "suggest": {
         "zero-to-prod/transformable": "Transform a class into different types.",
