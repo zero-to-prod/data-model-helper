@@ -13,3 +13,4 @@
 /test.sh                  export-ignore
 /dock                     export-ignore
 /art/                     export-ignore
+/context/                 export-ignore
