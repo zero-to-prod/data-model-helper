@@ -77,13 +77,15 @@ trait DataModelHelper
         $map = $args['map_via'] ?? 'map';
 
         $mapper = static function ($value, $level = 1) use ($args, $map, $type, $method, &$mapper) {
+            if (($args['key_by'] ?? null) && count(array_column($value, ($args['key_by'] ?? null)))) {
+                $value = array_combine(array_column($value, ($args['key_by'] ?? null)), $value);
+            }
+
             return $type === 'array'
                 ? array_map(static fn($item) => $level <= 1
                     ? $args['type']::$method($item)
                     : $mapper($item, $level - 1),
-                    ($args['key_by'] ?? null) && count(array_column($value, ($args['key_by'] ?? null)))
-                        ? array_combine(array_column($value, ($args['key_by'] ?? null)), $value)
-                        : $value)
+                    $value)
                 : (new $type(
                     is_callable($args['map'] ?? null)
                         ? $args['map']($value)
