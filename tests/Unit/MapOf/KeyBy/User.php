@@ -27,4 +27,13 @@ class User
         'key_by' => 'id'
     ])]
     public ?array $AliasesNested;
+
+    /** @var Collection $AliasesCollection */
+    #[Describe([
+        'cast' => [self::class, 'mapOf'],
+        'type' => Alias::class,
+        'key_by' => 'id',
+        'map_via' => 'map'
+    ])]
+    public ?Collection $AliasesCollection;
 }

@@ -59,4 +59,23 @@ class KeyByTest extends TestCase
         self::assertEquals('John Doe', $User->AliasesNested[1]['jd1']->name);
         self::assertEquals('John Smith', $User->AliasesNested[1]['js1']->name);
     }
+
+    #[Test] public function collectionWithKeyBy(): void
+    {
+        $User = User::from([
+            'AliasesCollection' => [
+                [
+                    'id' => 'jd1',
+                    'name' => 'John Doe',
+                ],
+                [
+                    'id' => 'js1',
+                    'name' => 'John Smith'
+                ],
+            ]
+        ]);
+
+        self::assertEquals('John Doe', $User->AliasesCollection->items['jd1']->name);
+        self::assertEquals('John Smith', $User->AliasesCollection->items['js1']->name);
+    }
 }
